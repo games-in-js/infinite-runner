@@ -18,11 +18,20 @@ class Game {
     this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
 
     this.player.draw(this.ctx);
+    this.player.y--;
   }
 }
 
 window.onload = () => {
   const game = new Game();
 
-  game.render();
+  // loop infinito
+  function gameLoop() {
+    game.render();
+    // atualizando a cada X quadros por segundo
+    // varia baseado no seu monitor/hardware
+    requestAnimationFrame(gameLoop);
+  }
+
+  gameLoop();
 };
