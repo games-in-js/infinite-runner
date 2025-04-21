@@ -17,8 +17,11 @@ class Game {
     this.ctx.fillStyle = "#0a0c21";
     this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
 
+    // desenha os elementos
     this.player.draw(this.ctx);
-    this.player.y--;
+
+    // atualiza os elementos
+    this.player.update(this.canvas);
   }
 }
 
