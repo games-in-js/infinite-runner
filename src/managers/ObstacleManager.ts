@@ -18,9 +18,11 @@ class ObstacleManager {
   }
 
   createObstacle() {
+    const y = Math.random() < 0.5 ? 70 : 140;
+
     const obstacle = new Obstacle(
       this.canvas.width,
-      this.canvas.height - 70,
+      this.canvas.height - y,
       30,
       70,
       "#fff000"
