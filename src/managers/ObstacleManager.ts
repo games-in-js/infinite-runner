@@ -1,7 +1,9 @@
 import Obstacle from "../entities/Obstacle";
-
-const SPAWN_MIN_TIME = 1000;
-const SPAWN_MAX_TIME = 2500;
+import {
+  INITIAL_GAME_SPEED,
+  SPAWN_MAX_TIME,
+  SPAWN_MIN_TIME,
+} from "../constants";
 
 class ObstacleManager {
   obstacles: Array<Obstacle> = [];
@@ -33,19 +35,22 @@ class ObstacleManager {
     });
   }
 
-  update(deltatime: number) {
-    this.nextSpawnTime -= deltatime;
-
+  update(deltatime: number, gameSpeed: number) {
     if (this.nextSpawnTime <= 0) {
       this.createObstacle();
 
-      this.nextSpawnTime = Math.floor(
-        Math.random() * (SPAWN_MAX_TIME - SPAWN_MIN_TIME) + SPAWN_MIN_TIME
-      );
+      const speedFactor = INITIAL_GAME_SPEED / gameSpeed;
+
+      this.nextSpawnTime =
+        Math.floor(
+          Math.random() * (SPAWN_MAX_TIME - SPAWN_MIN_TIME) + SPAWN_MIN_TIME
+        ) * speedFactor;
     }
 
+    this.nextSpawnTime -= deltatime;
+
     this.obstacles.forEach((obstacle) => {
-      obstacle.update();
+      obstacle.x -= gameSpeed;
     });
   }
 }

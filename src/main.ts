@@ -1,3 +1,4 @@
+import { INITIAL_GAME_SPEED } from "./constants";
 import Player from "./entities/Player";
 import ObstacleManager from "./managers/ObstacleManager";
 import "./style.css";
@@ -9,6 +10,7 @@ class Game {
   obstacleManager: ObstacleManager;
 
   lastTimestamp = 0;
+  gameSpeed = INITIAL_GAME_SPEED;
 
   constructor() {
     this.canvas.width = window.innerWidth;
@@ -33,7 +35,8 @@ class Game {
 
     // atualiza os elementos
     this.player.update(this.canvas);
-    this.obstacleManager.update(deltatime);
+    this.obstacleManager.update(deltatime, this.gameSpeed);
+    this.gameSpeed += 0.3 * (deltatime / 1000);
   }
 }
 

@@ -17,10 +17,6 @@ class Obstacle {
     ctx.fillStyle = this.color;
     ctx.fillRect(this.x, this.y, this.width, this.height);
   }
-
-  update() {
-    this.x -= 5;
-  }
 }
 
 export default Obstacle;
