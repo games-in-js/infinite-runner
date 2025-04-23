@@ -38,13 +38,17 @@ class ObstacleManager {
 
   // um jogo não deve ser mais fácil/mais difícil pelo fps
   // deltatime
-  update() {
-    this.nextSpawnTime -= 5;
+
+  // 2 erros importantes
+  // 1) subtrair por um valor arbitrário
+  // 2) valor não ser determinado pela taxa de quadros por segundo (fps)
+  update(deltatime: number) {
+    this.nextSpawnTime -= deltatime; // baseado em ms
 
     if (this.nextSpawnTime <= 0) {
       this.createObstacle();
 
-      this.nextSpawnTime = 300; // 1000ms === 1s
+      this.nextSpawnTime = 1000; // 1000ms === 1s
     }
 
     this.obstacles.forEach((obstacle) => {
