@@ -37,6 +37,10 @@ class Game {
     this.player.update(this.canvas);
     this.obstacleManager.update(deltatime, this.gameSpeed);
     this.gameSpeed += 0.3 * (deltatime / 1000);
+
+    if (this.obstacleManager.checkCollision(this.player)) {
+      console.log("colisão aconteceu ~ main");
+    }
   }
 }
 

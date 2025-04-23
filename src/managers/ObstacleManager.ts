@@ -17,6 +17,26 @@ class ObstacleManager {
     this.ctx = ctx;
   }
 
+  checkCollision(player: {
+    x: number;
+    y: number;
+    width: number;
+    height: number;
+  }) {
+    for (const obstacle of this.obstacles) {
+      if (
+        player.x < obstacle.x + obstacle.width &&
+        player.x + player.width > obstacle.x &&
+        player.y < obstacle.y + obstacle.height &&
+        player.y + player.height > obstacle.y
+      ) {
+        return true;
+      }
+    }
+
+    return false;
+  }
+
   createObstacle() {
     const y = Math.random() < 0.5 ? 70 : 140;
 
