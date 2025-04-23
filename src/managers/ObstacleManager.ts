@@ -52,6 +52,11 @@ class ObstacleManager {
     this.obstacles.forEach((obstacle) => {
       obstacle.x -= gameSpeed;
     });
+
+    // remove obstacles that are off the screen (offscreen)
+    this.obstacles = this.obstacles.filter(
+      (obstacle) => obstacle.x + obstacle.width > 0
+    );
   }
 }
 
