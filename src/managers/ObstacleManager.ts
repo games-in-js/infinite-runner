@@ -1,5 +1,8 @@
 import Obstacle from "../entities/Obstacle";
 
+const SPAWN_MIN_TIME = 1000;
+const SPAWN_MAX_TIME = 2500;
+
 class ObstacleManager {
   obstacles: Array<Obstacle> = [];
   nextSpawnTime = 0;
@@ -30,25 +33,15 @@ class ObstacleManager {
     });
   }
 
-  // chamado a cada quadro por segundo
-  // 60 fps = 60 quadros por segundo
-  // 60 * 5 = subtrai 300 a cada segundo
-  // 1000 ~ 1000 / 300 ~ 3.33s
-  // 120 fps > 600! => 0.5s
-
-  // um jogo não deve ser mais fácil/mais difícil pelo fps
-  // deltatime
-
-  // 2 erros importantes
-  // 1) subtrair por um valor arbitrário
-  // 2) valor não ser determinado pela taxa de quadros por segundo (fps)
   update(deltatime: number) {
-    this.nextSpawnTime -= deltatime; // baseado em ms
+    this.nextSpawnTime -= deltatime;
 
     if (this.nextSpawnTime <= 0) {
       this.createObstacle();
 
-      this.nextSpawnTime = 1000; // 1000ms === 1s
+      this.nextSpawnTime = Math.floor(
+        Math.random() * (SPAWN_MAX_TIME - SPAWN_MIN_TIME) + SPAWN_MIN_TIME
+      );
     }
 
     this.obstacles.forEach((obstacle) => {
