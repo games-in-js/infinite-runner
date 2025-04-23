@@ -11,6 +11,7 @@ class Game {
 
   lastTimestamp = 0;
   gameSpeed = INITIAL_GAME_SPEED;
+  isGameOver = false;
 
   constructor() {
     this.canvas.width = window.innerWidth;
@@ -34,12 +35,14 @@ class Game {
     this.obstacleManager.draw();
 
     // atualiza os elementos
-    this.player.update(this.canvas);
-    this.obstacleManager.update(deltatime, this.gameSpeed);
-    this.gameSpeed += 0.3 * (deltatime / 1000);
+    if (!this.isGameOver) {
+      this.player.update(this.canvas);
+      this.obstacleManager.update(deltatime, this.gameSpeed);
+      this.gameSpeed += 0.3 * (deltatime / 1000);
 
-    if (this.obstacleManager.checkCollision(this.player)) {
-      console.log("colisão aconteceu ~ main");
+      if (this.obstacleManager.checkCollision(this.player)) {
+        this.isGameOver = true;
+      }
     }
   }
 }
