@@ -1,25 +1,19 @@
-import Obstacle from "./entities/Obstacle";
 import Player from "./entities/Player";
+import ObstacleManager from "./managers/ObstacleManager";
 import "./style.css";
 
 class Game {
   canvas = document.getElementById("game-canvas") as HTMLCanvasElement;
   ctx = this.canvas.getContext("2d")!;
   player: Player;
-  obstacle: Obstacle;
+  obstacleManager: ObstacleManager;
 
   constructor() {
     this.canvas.width = window.innerWidth;
     this.canvas.height = window.innerHeight;
 
     this.player = new Player(50, this.canvas.height - 50, 50, 50, "#f231a5");
-    this.obstacle = new Obstacle(
-      this.canvas.width,
-      this.canvas.height - 70,
-      30,
-      70,
-      "#fff000"
-    );
+    this.obstacleManager = new ObstacleManager(this.canvas, this.ctx);
   }
 
   render() {
@@ -28,11 +22,11 @@ class Game {
 
     // desenha os elementos
     this.player.draw(this.ctx);
-    this.obstacle.draw(this.ctx);
+    this.obstacleManager.draw();
 
     // atualiza os elementos
     this.player.update(this.canvas);
-    this.obstacle.update();
+    this.obstacleManager.update();
   }
 }
 
