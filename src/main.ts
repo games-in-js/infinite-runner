@@ -1,15 +1,19 @@
 import { INITIAL_GAME_SPEED } from "./constants";
 import Player from "./entities/Player";
 import ObstacleManager from "./managers/ObstacleManager";
+import ScoreManager from "./managers/ScoreManager";
 import TextManager from "./managers/TextManager";
 import "./style.css";
 
 class Game {
   canvas = document.getElementById("game-canvas") as HTMLCanvasElement;
   ctx = this.canvas.getContext("2d")!;
+
   player: Player;
+
   obstacleManager: ObstacleManager;
   textManager: TextManager;
+  scoreManager = new ScoreManager();
 
   lastTimestamp = 0;
   gameSpeed = INITIAL_GAME_SPEED;
@@ -65,8 +69,8 @@ class Game {
     this.player.draw(this.ctx);
     this.obstacleManager.draw();
 
-    this.textManager.drawScore(0);
-    this.textManager.drawHighScore(0);
+    this.textManager.drawScore(this.scoreManager.getScore());
+    this.textManager.drawHighScore(this.scoreManager.getHighScore());
 
     if (!this.isPlaying) {
       this.textManager.drawInitialScreen();
@@ -76,6 +80,7 @@ class Game {
     if (this.isPlaying && !this.isGameOver) {
       this.player.update(this.canvas);
       this.obstacleManager.update(deltatime, this.gameSpeed);
+      this.scoreManager.update(deltatime);
       this.gameSpeed += 0.3 * (deltatime / 1000);
 
       if (this.obstacleManager.checkCollision(this.player)) {
@@ -85,6 +90,8 @@ class Game {
 
     if (this.isGameOver) {
       this.textManager.drawGameOverScreen();
+
+      this.scoreManager.updateHighScore();
     }
   }
 }
