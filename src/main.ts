@@ -1,5 +1,6 @@
 import { INITIAL_GAME_SPEED } from "./constants";
 import Player from "./entities/Player";
+import AudioManager from "./managers/AudioManager";
 import ObstacleManager from "./managers/ObstacleManager";
 import ScoreManager from "./managers/ScoreManager";
 import TextManager from "./managers/TextManager";
@@ -14,6 +15,7 @@ class Game {
   obstacleManager: ObstacleManager;
   textManager: TextManager;
   scoreManager = new ScoreManager();
+  audioManager = new AudioManager();
 
   lastTimestamp = 0;
   gameSpeed = INITIAL_GAME_SPEED;
@@ -31,7 +33,18 @@ class Game {
     this.setupControls();
   }
 
+  async initializeAudio() {
+    try {
+      await this.audioManager.initialize();
+      console.log("Audio inicializado!");
+    } catch (error) {
+      console.error("Failed to initialize audio:", error);
+    }
+  }
+
   handleGameAction() {
+    this.initializeAudio();
+
     if (!this.isPlaying && !this.isGameOver) {
       this.isPlaying = true;
     } else if (this.isGameOver) {
