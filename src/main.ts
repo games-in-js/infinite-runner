@@ -65,6 +65,9 @@ class Game {
     this.player.draw(this.ctx);
     this.obstacleManager.draw();
 
+    this.textManager.drawScore(0);
+    this.textManager.drawHighScore(0);
+
     if (!this.isPlaying) {
       this.textManager.drawInitialScreen();
     }

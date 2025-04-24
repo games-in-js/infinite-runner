@@ -35,6 +35,26 @@ class TextManager {
     );
   }
 
+  drawScore(score: number) {
+    this.drawText(
+      `Score: ${score.toString().padStart(6, "0")}`,
+      180,
+      50,
+      18,
+      "left"
+    );
+  }
+
+  drawHighScore(highScore: number) {
+    this.drawText(
+      `High Score: ${highScore.toString().padStart(6, "0")}`,
+      this.canvas.width - 250,
+      50,
+      18,
+      "right"
+    );
+  }
+
   drawGameOverScreen() {
     const titleY = this.canvas.height / 2;
     const centerText = this.canvas.width / 2;
