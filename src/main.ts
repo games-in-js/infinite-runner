@@ -68,6 +68,15 @@ class Game {
     this.player.reset(50, this.canvas.height - 50);
   }
 
+  updatePlayer() {
+    if (this.audioManager.initialized) {
+      const jumpHeight = this.audioManager.getJumpHeight();
+      this.player.jump(jumpHeight);
+    }
+
+    this.player.update(this.canvas);
+  }
+
   render(timestamp: number) {
     // calcular a diferença entre o tempo passado do quadro anterior e o quadro
     // que acabou de renderizar, gerar o delta time (diferencial)
@@ -91,7 +100,7 @@ class Game {
 
     // atualiza os elementos
     if (this.isPlaying && !this.isGameOver) {
-      this.player.update(this.canvas);
+      this.updatePlayer();
       this.obstacleManager.update(deltatime, this.gameSpeed);
       this.scoreManager.update(deltatime);
       this.gameSpeed += 0.3 * (deltatime / 1000);

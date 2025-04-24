@@ -44,6 +44,22 @@ class AudioManager {
       console.log("Microphone setup failed", err);
     }
   }
+
+  getJumpHeight() {
+    if (!this.initialized) return 0;
+    this.analyser.getByteFrequencyData(this.data);
+
+    const volume =
+      Math.min(
+        1,
+        this.data.reduce((a, b) => a + b, 0) / (this.data.length * 128)
+      ) * 5;
+
+    const baseJumpHeight = -15;
+    const volumeMultiplier = 10;
+
+    return volume < 0.2 ? 0 : baseJumpHeight - volume * volumeMultiplier;
+  }
 }
 
 export default AudioManager;

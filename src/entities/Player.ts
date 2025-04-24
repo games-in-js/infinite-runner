@@ -26,9 +26,11 @@ class Player {
     });
   }
 
-  jump() {
-    if (this.grounded) {
-      this.dy = -20;
+  jump(jumpHeight: number = -20) {
+    if (jumpHeight < -15) {
+      if (this.grounded) {
+        this.dy = jumpHeight;
+      }
     }
   }
 
