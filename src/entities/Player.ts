@@ -1,3 +1,5 @@
+import { GROUND_HEIGHT } from "../constants";
+
 class Player {
   private dy = 0;
   private grounded = true;
@@ -42,14 +44,16 @@ class Player {
   update(canvas: HTMLCanvasElement) {
     this.y += this.dy;
 
+    const groundY = canvas.height - GROUND_HEIGHT;
+
     // gravidade
-    if (this.y + this.height < canvas.height) {
+    if (this.y + this.height < groundY) {
       this.dy += 1;
       this.grounded = false;
     } else {
       this.dy = 0;
       this.grounded = true;
-      this.y = canvas.height - this.height;
+      this.y = groundY - this.height;
     }
   }
 

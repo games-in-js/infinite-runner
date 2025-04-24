@@ -1,4 +1,5 @@
-import { INITIAL_GAME_SPEED } from "./constants";
+import { GROUND_HEIGHT, INITIAL_GAME_SPEED } from "./constants";
+import Ground from "./entities/Ground";
 import Player from "./entities/Player";
 import AudioManager from "./managers/AudioManager";
 import ObstacleManager from "./managers/ObstacleManager";
@@ -11,6 +12,7 @@ class Game {
   ctx = this.canvas.getContext("2d")!;
 
   player: Player;
+  ground: Ground;
 
   obstacleManager: ObstacleManager;
   textManager: TextManager;
@@ -26,7 +28,19 @@ class Game {
     this.canvas.width = window.innerWidth;
     this.canvas.height = window.innerHeight;
 
-    this.player = new Player(50, this.canvas.height - 50, 50, 50, "#f231a5");
+    this.ground = new Ground(
+      0,
+      this.canvas.height - GROUND_HEIGHT,
+      this.canvas.width,
+      GROUND_HEIGHT
+    );
+    this.player = new Player(
+      50,
+      this.canvas.height - GROUND_HEIGHT - 50,
+      50,
+      50,
+      "#f231a5"
+    );
     this.obstacleManager = new ObstacleManager(this.canvas, this.ctx);
     this.textManager = new TextManager(this.canvas, this.ctx);
 
@@ -88,6 +102,7 @@ class Game {
     this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
 
     // desenha os elementos
+    this.ground.draw(this.ctx);
     this.player.draw(this.ctx);
     this.obstacleManager.draw();
 
