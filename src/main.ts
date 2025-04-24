@@ -1,6 +1,7 @@
 import { INITIAL_GAME_SPEED } from "./constants";
 import Player from "./entities/Player";
 import ObstacleManager from "./managers/ObstacleManager";
+import TextManager from "./managers/TextManager";
 import "./style.css";
 
 class Game {
@@ -8,6 +9,7 @@ class Game {
   ctx = this.canvas.getContext("2d")!;
   player: Player;
   obstacleManager: ObstacleManager;
+  textManager: TextManager;
 
   lastTimestamp = 0;
   gameSpeed = INITIAL_GAME_SPEED;
@@ -19,6 +21,7 @@ class Game {
 
     this.player = new Player(50, this.canvas.height - 50, 50, 50, "#f231a5");
     this.obstacleManager = new ObstacleManager(this.canvas, this.ctx);
+    this.textManager = new TextManager(this.canvas, this.ctx);
   }
 
   render(timestamp: number) {
@@ -27,6 +30,7 @@ class Game {
     const deltatime = timestamp - this.lastTimestamp;
     this.lastTimestamp = timestamp;
 
+    // clear canvas
     this.ctx.fillStyle = "#0a0c21";
     this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
 
@@ -43,6 +47,10 @@ class Game {
       if (this.obstacleManager.checkCollision(this.player)) {
         this.isGameOver = true;
       }
+    }
+
+    if (this.isGameOver) {
+      this.textManager.drawGameOverScreen();
     }
   }
 }
