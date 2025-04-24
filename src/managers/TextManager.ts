@@ -21,6 +21,20 @@ class TextManager {
     this.ctx.fillText(text, x, y);
   }
 
+  drawInitialScreen() {
+    const titleY = this.canvas.height / 2;
+    const centerText = this.canvas.width / 2;
+
+    this.drawText("Press space or touch to play", centerText, titleY);
+
+    this.drawText(
+      "Press space, click or scream to jump",
+      centerText,
+      titleY + 60,
+      32
+    );
+  }
+
   drawGameOverScreen() {
     const titleY = this.canvas.height / 2;
     const centerText = this.canvas.width / 2;
