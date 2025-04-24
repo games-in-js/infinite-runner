@@ -50,6 +50,13 @@ class Player {
       this.y = canvas.height - this.height;
     }
   }
+
+  reset(x: number, y: number) {
+    this.x = x;
+    this.y = y;
+    this.dy = 0;
+    this.grounded = true;
+  }
 }
 
 export default Player;

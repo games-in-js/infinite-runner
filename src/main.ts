@@ -31,7 +31,7 @@ class Game {
     if (!this.isPlaying && !this.isGameOver) {
       this.isPlaying = true;
     } else if (this.isGameOver) {
-      console.log("reset game");
+      this.resetGame();
     }
   }
 
@@ -41,6 +41,14 @@ class Game {
         this.handleGameAction();
       }
     });
+  }
+
+  resetGame() {
+    this.isGameOver = false;
+    this.isPlaying = true;
+    this.gameSpeed = INITIAL_GAME_SPEED;
+    this.obstacleManager.reset();
+    this.player.reset(50, this.canvas.height - 50);
   }
 
   render(timestamp: number) {

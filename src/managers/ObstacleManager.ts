@@ -80,6 +80,11 @@ class ObstacleManager {
       (obstacle) => obstacle.x + obstacle.width > 0
     );
   }
+
+  reset() {
+    this.obstacles = [];
+    this.nextSpawnTime = 0;
+  }
 }
 
 export default ObstacleManager;
