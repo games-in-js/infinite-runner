@@ -1,3 +1,5 @@
+import { DEBUG_MODE } from "../constants";
+
 interface SpriteOptions {
   imageSrc?: string;
   spriteWidth?: number;
@@ -48,6 +50,16 @@ class Sprite {
   }
 
   draw(ctx: CanvasRenderingContext2D) {
+    if (DEBUG_MODE) {
+      ctx.fillStyle = "red";
+      ctx.fillRect(
+        this.x + 15 / 2,
+        this.y + 15 / 2,
+        this.spriteWidth - 15,
+        this.spriteHeight - 15
+      );
+    }
+
     ctx.drawImage(
       this.sprite,
       this.startX + this.currentFrame * this.frameSpacing,

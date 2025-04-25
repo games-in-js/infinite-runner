@@ -18,3 +18,5 @@ export const PLAYER_SPRITE_SIZE = 64;
 
 export const OBSTACLE_SPRITE_WIDTH = 72;
 export const OBSTACLE_SPRITE_HEIGHT = 78;
+
+export const DEBUG_MODE = false;
