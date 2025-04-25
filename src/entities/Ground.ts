@@ -16,17 +16,28 @@ class Ground {
   draw(ctx: CanvasRenderingContext2D) {
     const tilesX = Math.ceil(this.width / GROUND_TILE_SIZE);
 
-    ctx.fillStyle = GROUND_COLOR;
-    ctx.fillRect(this.x, this.y, this.width, this.height);
+    for (let j = 0; j < 2; j++) {
+      const offsetX = this.x + j * this.width;
 
-    for (let i = 0; i < tilesX; i++) {
-      ctx.drawImage(
-        this.sprite,
-        this.x + i * GROUND_TILE_SIZE, // 0 | 0 + 1 * 24 | 0 + 2 * 24
-        this.y,
-        GROUND_TILE_SIZE,
-        GROUND_TILE_SIZE
-      );
+      ctx.fillStyle = GROUND_COLOR;
+      ctx.fillRect(offsetX, this.y, this.width, this.height);
+
+      for (let i = 0; i < tilesX; i++) {
+        ctx.drawImage(
+          this.sprite,
+          offsetX + i * GROUND_TILE_SIZE,
+          this.y,
+          GROUND_TILE_SIZE,
+          GROUND_TILE_SIZE
+        );
+      }
+    }
+  }
+
+  update(gameSpeed: number) {
+    this.x -= gameSpeed;
+    if (this.x <= -this.width) {
+      this.x = 0;
     }
   }
 }

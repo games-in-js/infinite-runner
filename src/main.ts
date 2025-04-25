@@ -116,6 +116,7 @@ class Game {
     // atualiza os elementos
     if (this.isPlaying && !this.isGameOver) {
       this.updatePlayer();
+      this.ground.update(this.gameSpeed);
       this.obstacleManager.update(deltatime, this.gameSpeed);
       this.scoreManager.update(deltatime);
       this.gameSpeed += 0.3 * (deltatime / 1000);
