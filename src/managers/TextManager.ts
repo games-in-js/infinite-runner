@@ -7,16 +7,23 @@ class TextManager {
     this.ctx = ctx;
   }
 
+  private getResponsiveFontSize(vmin: number) {
+    const maxDimension = Math.max(this.canvas.width, this.canvas.height);
+    return Math.round((maxDimension * vmin) / 100);
+  }
+
   drawText(
     text: string,
     x: number,
     y: number,
-    size: number = 48,
+    size: number = 3, // css 1vw / 2vw
     align: CanvasTextAlign = "center",
     color: string = "#ffffff"
   ) {
+    const fontSize = this.getResponsiveFontSize(size);
+
     this.ctx.fillStyle = color;
-    this.ctx.font = `${size}px "Press Start 2P"`;
+    this.ctx.font = `${fontSize}px "Press Start 2P"`;
     this.ctx.textAlign = align;
     this.ctx.fillText(text, x, y);
   }
@@ -24,33 +31,38 @@ class TextManager {
   drawInitialScreen() {
     const titleY = this.canvas.height / 2;
     const centerText = this.canvas.width / 2;
+    const spacing = this.getResponsiveFontSize(3);
 
-    this.drawText("Press space or touch to play", centerText, titleY);
+    this.drawText("Press space or touch to play", centerText, titleY, 1.5);
 
     this.drawText(
       "Press space, click or scream to jump",
       centerText,
-      titleY + 60,
-      32
+      titleY + spacing,
+      1
     );
   }
 
   drawScore(score: number) {
+    const spacing = this.getResponsiveFontSize(4);
+
     this.drawText(
       `Score: ${score.toString().padStart(6, "0")}`,
-      180,
-      50,
-      18,
+      spacing,
+      spacing,
+      1,
       "left"
     );
   }
 
   drawHighScore(highScore: number) {
+    const spacing = this.getResponsiveFontSize(4);
+
     this.drawText(
       `High Score: ${highScore.toString().padStart(6, "0")}`,
-      this.canvas.width - 250,
-      50,
-      18,
+      this.canvas.width - spacing,
+      spacing,
+      1,
       "right"
     );
   }
@@ -58,14 +70,15 @@ class TextManager {
   drawGameOverScreen() {
     const titleY = this.canvas.height / 2;
     const centerText = this.canvas.width / 2;
+    const spacing = this.getResponsiveFontSize(3);
 
-    this.drawText("Game Over", centerText, titleY);
+    this.drawText("Game Over", centerText, titleY, 2);
 
     this.drawText(
       "Press space or touch to restart",
       centerText,
-      titleY + 60,
-      32
+      titleY + spacing,
+      1
     );
   }
 }
