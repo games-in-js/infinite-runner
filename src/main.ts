@@ -45,10 +45,7 @@ class Game {
 
     this.player = new Player(
       50,
-      this.canvas.height - GROUND_HEIGHT - PLAYER_SPRITE_SIZE,
-      PLAYER_SPRITE_SIZE,
-      PLAYER_SPRITE_SIZE,
-      "#f231a5"
+      this.canvas.height - GROUND_HEIGHT - PLAYER_SPRITE_SIZE
     );
     this.obstacleManager = new ObstacleManager(this.canvas, this.ctx);
     this.textManager = new TextManager(this.canvas, this.ctx);

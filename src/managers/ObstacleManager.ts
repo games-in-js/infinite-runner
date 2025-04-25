@@ -43,10 +43,7 @@ class ObstacleManager {
 
     const obstacle = new Obstacle(
       this.canvas.width,
-      this.canvas.height - GROUND_HEIGHT - y,
-      30,
-      70,
-      "#fff000"
+      this.canvas.height - GROUND_HEIGHT - y
     );
 
     this.obstacles.push(obstacle);
