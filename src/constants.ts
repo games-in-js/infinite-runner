@@ -13,3 +13,5 @@ export const BACKGROUND_LAYERS = [
   { src: "background_layer_2.png", speed: 0.4 },
   { src: "background_layer_3.png", speed: 0.6 },
 ];
+
+export const PLAYER_SPRITE_SIZE = 64;

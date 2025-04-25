@@ -1,4 +1,8 @@
-import { GROUND_HEIGHT, INITIAL_GAME_SPEED } from "./constants";
+import {
+  GROUND_HEIGHT,
+  INITIAL_GAME_SPEED,
+  PLAYER_SPRITE_SIZE,
+} from "./constants";
 import Background from "./entities/Background";
 import Ground from "./entities/Ground";
 import Player from "./entities/Player";
@@ -41,9 +45,9 @@ class Game {
 
     this.player = new Player(
       50,
-      this.canvas.height - GROUND_HEIGHT - 50,
-      50,
-      50,
+      this.canvas.height - GROUND_HEIGHT - PLAYER_SPRITE_SIZE,
+      PLAYER_SPRITE_SIZE,
+      PLAYER_SPRITE_SIZE,
       "#f231a5"
     );
     this.obstacleManager = new ObstacleManager(this.canvas, this.ctx);
