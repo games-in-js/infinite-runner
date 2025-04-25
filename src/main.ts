@@ -66,6 +66,14 @@ class Game {
     }
   }
 
+  setupCanvas() {
+    let resizeTimeout: number;
+    window.addEventListener("resize", () => {
+      clearTimeout(resizeTimeout);
+      resizeTimeout = setTimeout(() => this.initializeGame(), 100);
+    });
+  }
+
   handleGameAction() {
     this.initializeAudio();
 
@@ -76,19 +84,15 @@ class Game {
     }
   }
 
-  setupCanvas() {
-    let resizeTimeout: number;
-    window.addEventListener("resize", () => {
-      clearTimeout(resizeTimeout);
-      resizeTimeout = setTimeout(() => this.initializeGame(), 100);
-    });
-  }
-
   setupControls() {
     window.addEventListener("keydown", (e) => {
       if (e.code === "Space") {
         this.handleGameAction();
       }
+    });
+
+    window.addEventListener("touchstart", () => {
+      this.handleGameAction();
     });
   }
 
